@@ -1,6 +1,9 @@
 name: build sing-box with proxy providers
 
 on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
   push:
     branches:
       - main
@@ -22,6 +25,13 @@ jobs:
         with:
           fetch-depth: 0
           repository: SagerNet/sing-box
+      - name: Add proxy providers
+        run: |
+          git checkout dev
+          git remote add qjebbs https://github.com/qjebbs/sing-box
+          git fetch qjebbs
+          git cherry-pick d1b8936^..1ab5f0a
+          sed -i "s/v.TLSAllowInsecure/true/g" provider/link/vmess.go
       - name: Get latest go version
         id: version
         run: |
@@ -57,6 +67,13 @@ jobs:
         with:
           fetch-depth: 0
           repository: SagerNet/sing-box
+      - name: Add proxy providers
+        run: |
+          git checkout dev
+          git remote add qjebbs https://github.com/qjebbs/sing-box
+          git fetch qjebbs
+          git cherry-pick d1b8936^..1ab5f0a
+          sed -i "s/v.TLSAllowInsecure/true/g" provider/link/vmess.go
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
@@ -190,6 +207,13 @@ jobs:
         with:
           fetch-depth: 0
           repository: SagerNet/sing-box
+      - name: Add proxy providers
+        run: |
+          git checkout dev
+          git remote add qjebbs https://github.com/qjebbs/sing-box
+          git fetch qjebbs
+          git cherry-pick d1b8936^..1ab5f0a
+          sed -i "s/v.TLSAllowInsecure/true/g" provider/link/vmess.go
       - name: Get latest go version
         id: version
         run: |

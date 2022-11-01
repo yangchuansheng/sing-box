@@ -242,3 +242,8 @@ jobs:
         with:
           name: sing-box-${{ matrix.name }}
           path: sing-box*
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            sing-box*/sing-box-${{ matrix.name }}

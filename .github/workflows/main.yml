@@ -212,8 +212,8 @@ jobs:
     steps:
       - name: Set variables
         run: |
-          echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
-          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "RELEASE_NAME=Released on $(date +%Y%m%d%H)" >> $GITHUB_ENV
+          echo "TAG_NAME=$(date +%Y%m%d%H)" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -247,14 +247,15 @@ jobs:
         run: make
       - name: Rename
         run: mv sing-box* sing-box-${{ matrix.name }}
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: sing-box-${{ matrix.name }}
-          path: sing-box*
+      #- name: Upload artifact
+      #  uses: actions/upload-artifact@v2
+      #  with:
+      #    name: sing-box-${{ matrix.name }}
+      #    path: sing-box*
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ env.TAG_NAME }}
+          tag_name: ${{ env.RELEASE_NAME }}
+          name: ${{ env.TAG_NAME }}
           files: |
             sing-box*

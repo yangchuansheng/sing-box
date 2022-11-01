@@ -55,7 +55,7 @@
   "providers": [
     {
       "tag": "Gacloud",
-      "url": "https://xxxxxx",
+      "url": "https://invitation.gacloud.ltd/auth/register?code=SpNw",
       "interval": "24h",
       "cache_file": "gacloud.txt",
 

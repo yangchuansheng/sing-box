@@ -244,7 +244,7 @@ jobs:
           path: sing-box*
       - name: Test
         run: |
-          ls -lh
+          ls -lh sing-box
       - name: Release
         uses: softprops/action-gh-release@v1
         with:

@@ -245,6 +245,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: latest
+          tag_name: ${{ steps.build.outputs.tag }}
+          name: sing-box-${{ matrix.name }}
           files: |
             sing-box*

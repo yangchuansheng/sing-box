@@ -27,6 +27,8 @@ jobs:
           repository: SagerNet/sing-box
       - name: Add proxy providers
         run: |
+          git config --global user.email "yangchuansheng33@gmail.com"
+          git config --global user.name "yangchuansheng"
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
@@ -69,6 +71,8 @@ jobs:
           repository: SagerNet/sing-box
       - name: Add proxy providers
         run: |
+          git config --global user.email "yangchuansheng33@gmail.com"
+          git config --global user.name "yangchuansheng"
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
@@ -209,6 +213,8 @@ jobs:
           repository: SagerNet/sing-box
       - name: Add proxy providers
         run: |
+          git config --global user.email "yangchuansheng33@gmail.com"
+          git config --global user.name "yangchuansheng"
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs

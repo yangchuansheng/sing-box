@@ -255,7 +255,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ env.RELEASE_NAME }}
-          name: ${{ env.TAG_NAME }}
+          tag_name: ${{ env.TAG_NAME }}
+          name: ${{ env.RELEASE_NAME }}
           files: |
             sing-box*

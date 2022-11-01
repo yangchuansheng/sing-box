@@ -245,6 +245,8 @@ jobs:
       - name: Build
         id: build
         run: make
+      - name: Rename
+        run: mv sing-box* sing-box-${{ matrix.name }}
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
@@ -254,6 +256,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ env.TAG_NAME }}
-          name: sing-box-${{ matrix.name }}
           files: |
             sing-box*

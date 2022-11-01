@@ -1,0 +1,194 @@
+{
+  "experimental": {
+    "clash_api": {
+      "external_controller": "0.0.0.0:9092",
+      "external_ui": "yacd",
+      "secret": "",
+      "default_mode": "rule",
+      "store_selected": true,
+      "cache_file": "cache.db"
+    }
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "default",
+        "address": "tls://xxxxxx",
+        "address_resolver": "local",
+        "detour": "direct"
+      },
+      {
+        "tag": "local",
+        "address": "223.5.5.5",
+        "detour": "direct"
+      }
+    ],
+    "rules": [
+      {
+        "domain_suffix": [
+          "appletls.com",
+          "ganode.org",
+          "ytpay.link"
+        ],
+        "server": "local",
+        "disable_cache": false
+      }
+    ],
+    "final": "default",
+    "strategy": "ipv4_only"
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "inet4_address": "198.18.0.1/16",
+      "auto_route": true,
+      "domain_strategy": "ipv4_only",
+      "sniff": true
+    },
+    {
+      "type": "socks",
+      "tag": "socks-in",
+      "listen": "::",
+      "listen_port": 5353
+    }
+  ],
+  "providers": [
+    {
+      "tag": "Gacloud",
+      "url": "https://xxxxxx",
+      "interval": "24h",
+      "cache_file": "gacloud.txt",
+
+      "exclude": "官网|剩余|到期",
+
+      "download_detour": "direct"
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "selector",
+      "tag": "select",
+    
+      "outbounds": [
+        "trojan-out",
+        "Gacloud"
+      ],
+      "default": "trojan-out"
+    },
+    {
+      "type": "trojan",
+      "tag": "trojan-out",
+    
+      "server": "xxxxx",
+      "server_port": 443,
+      "password": "xxxxx",
+      "network": "tcp",
+      "domain_strategy": "ipv4_only",
+      "tls": {
+          "enabled": false
+      }
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "type": "block",
+      "tag": "block"
+    },
+    {
+      "type": "dns",
+      "tag": "dns-out"
+    }
+  ],
+  "route": {
+    "geoip": {
+        "path": "geoip.db",
+        "download_url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/geoip.db",
+        "download_detour": "select"
+    },
+    "geosite": {
+      "path": "geosite.db",
+      "download_url": "https://github.com/yangchuansheng/sing-geosite/releases/latest/download/geosite.db",
+      "download_detour": "select"
+    },
+    "rules": [
+      {
+        "protocol": "dns",
+        "outbound": "dns-out"
+      },
+      {
+        "protocol": [
+          "quic"
+        ],
+        "outbound": "block"
+      },
+      {
+        "process_name": [
+          "TencentMeeting",
+          "NemoDesktop",
+          "ToDesk",
+          "ToDesk_Service",
+          "WeChat",
+          "Tailscale",
+          "wireguard-go",
+          "Tunnelblick"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "process_path": [
+          "/usr/libexec/rosetta/oahd"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "inbound": [
+          "socks-in"
+        ],
+        "outbound": "select"
+      },
+      {
+        "process_name": [
+          "DropboxMacUpdate",
+          "Dropbox"
+        ],
+        "outbound": "select"
+      },
+      {
+        "geosite": [
+          "geolocation-cn",
+          "icloud@cn",
+          "apple@cn"
+        ],
+        "geoip": [
+          "cn",
+          "private"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "geosite": [
+          "google",
+          "youtube"
+        ],
+        "geoip": [
+          "google",
+          "telegram",
+          "twitter",
+          "netflix"
+        ],
+        "outbound": "select"
+      },
+      {
+        "geosite": [
+          "geolocation-!cn"
+        ],
+        "outbound": "select"
+      }
+    ],
+    "final": "direct",
+    "find_process": true,
+    "auto_detect_interface": true
+  }
+}

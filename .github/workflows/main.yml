@@ -237,10 +237,6 @@ jobs:
       - name: Build
         id: build
         run: make
-      - name: Test
-        run: |
-          tree
-          ls -lh sing-box
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
@@ -251,4 +247,4 @@ jobs:
         with:
           tag_name: latest
           files: |
-            sing-box/sing-box-${{ matrix.name }}
+            sing-box*

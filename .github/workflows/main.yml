@@ -210,6 +210,10 @@ jobs:
       CGO_ENABLED: 0
       TAGS: with_clash_api,with_quic
     steps:
+      - name: Set variables
+        run: |
+          echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
+          echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
         with:

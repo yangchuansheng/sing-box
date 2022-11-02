@@ -249,7 +249,7 @@ jobs:
         run: |
           echo ${{ contains(matrix.name, 'windows') }}
           echo ${{ matrix.name }}
-      - name: Rename
+      - name: Rename Windows
         if: ${{ contains(matrix.name, 'windows') }}
         run: mv sing-box* sing-box-${{ matrix.name }}.exe
       - name: Rename

@@ -245,6 +245,10 @@ jobs:
       - name: Build
         id: build
         run: make
+      - name: Test
+        run: |
+          echo ${{ contains(matrix.name, 'windows') }}
+          echo ${{ matrix.name }}
       - name: Rename
         if: ${{ contains(matrix.name, 'windows') }}
         run: mv sing-box* sing-box-${{ matrix.name }}.exe

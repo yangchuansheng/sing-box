@@ -253,7 +253,7 @@ jobs:
         if: ${{ contains(matrix.name, 'windows') }}
         run: mv sing-box* sing-box-${{ matrix.name }}.exe
       - name: Rename
-        if: ${{ contains(matrix.name, 'windows') }} == false
+        if: ${{ contains(matrix.name, 'linux') || contains(matrix.name, 'bsd') || contains(matrix.name, 'darwin') }}
         run: mv sing-box* sing-box-${{ matrix.name }}
       #- name: Upload artifact
       #  uses: actions/upload-artifact@v2

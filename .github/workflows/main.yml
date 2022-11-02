@@ -246,6 +246,10 @@ jobs:
         id: build
         run: make
       - name: Rename
+        if: ${{ contains(matrix.name, 'windows') }}
+        run: mv sing-box* sing-box-${{ matrix.name }}.exe
+      - name: Rename
+        if: ${{ contains(matrix.name, 'windows') }} == false
         run: mv sing-box* sing-box-${{ matrix.name }}
       #- name: Upload artifact
       #  uses: actions/upload-artifact@v2

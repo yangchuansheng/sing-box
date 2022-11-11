@@ -37,8 +37,10 @@ jobs:
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
           git cherry-pick 254d038
-          #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
-          sed -i "s/v.TLSAllowInsecure/true/g" provider/link/vmess.go
+          git add mkdocs.yml
+          git -c core.editor=true cherry-pick --continue
+          sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
+          sed -i "s/v.TLSAllowInsecure/true/g" common/link/vmess.go
       - name: Get latest go version
         id: version
         run: |
@@ -82,8 +84,10 @@ jobs:
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
           git cherry-pick 254d038
-          #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
-          sed -i "s/v.TLSAllowInsecure/true/g" provider/link/vmess.go
+          git add mkdocs.yml
+          git -c core.editor=true cherry-pick --continue
+          sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
+          sed -i "s/v.TLSAllowInsecure/true/g" common/link/vmess.go
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
@@ -234,8 +238,10 @@ jobs:
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
           git cherry-pick 254d038
-          #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
-          sed -i "s/v.TLSAllowInsecure/true/g" provider/link/vmess.go
+          git add mkdocs.yml
+          git -c core.editor=true cherry-pick --continue
+          sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
+          sed -i "s/v.TLSAllowInsecure/true/g" common/link/vmess.go
       - name: Get latest go version
         id: version
         run: |

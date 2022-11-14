@@ -258,7 +258,7 @@ jobs:
           key: go-${{ hashFiles('**/go.sum') }}
       - name: Build
         id: build
-        run: make
+        run: make build
       - name: Test
         run: |
           echo ${{ contains(matrix.name, 'windows') }}

@@ -219,7 +219,7 @@ jobs:
       GOARM: ${{ matrix.goarm }}
       GOMIPS: ${{ matrix.gomips }}
       CGO_ENABLED: 0
-      TAGS: with_clash_api,with_quic
+      TAGS: with_gvisor,with_quic,with_wireguard,with_clash_api
     steps:
       - name: Set variables
         run: |
@@ -258,7 +258,7 @@ jobs:
           key: go-${{ hashFiles('**/go.sum') }}
       - name: Build
         id: build
-        run: make build
+        run: make
       - name: Test
         run: |
           echo ${{ contains(matrix.name, 'windows') }}

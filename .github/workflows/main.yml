@@ -36,10 +36,10 @@ jobs:
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
-          git cherry-pick 254d038 || true
-          git add mkdocs.yml
-          git -c core.editor=true cherry-pick --continue
-          sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
+          git cherry-pick 5a8b33b || true
+          #git add mkdocs.yml
+          #git -c core.editor=true cherry-pick --continue
+          #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
           sed -i "s/v.TLSAllowInsecure/true/g" common/link/vmess.go
       - name: Get latest go version
         id: version
@@ -83,10 +83,10 @@ jobs:
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
-          git cherry-pick 254d038 || true
-          git add mkdocs.yml
-          git -c core.editor=true cherry-pick --continue
-          sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
+          git cherry-pick 5a8b33b || true
+          #git add mkdocs.yml
+          #git -c core.editor=true cherry-pick --continue
+          #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
           sed -i "s/v.TLSAllowInsecure/true/g" common/link/vmess.go
       - name: Setup Go
         uses: actions/setup-go@v2
@@ -237,10 +237,10 @@ jobs:
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
-          git cherry-pick 254d038 || true
-          git add mkdocs.yml
-          git -c core.editor=true cherry-pick --continue
-          sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
+          git cherry-pick 5a8b33b || true
+          #git add mkdocs.yml
+          #git -c core.editor=true cherry-pick --continue
+          #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
           sed -i "s/v.TLSAllowInsecure/true/g" common/link/vmess.go
       - name: Get latest go version
         id: version

@@ -36,7 +36,7 @@ jobs:
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
-          git cherry-pick 9a0d772 || true
+          git cherry-pick 2672f6b || true
           #git add mkdocs.yml
           #git -c core.editor=true cherry-pick --continue
           #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
@@ -83,7 +83,7 @@ jobs:
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
-          git cherry-pick 9a0d772 || true
+          git cherry-pick 2672f6b || true
           #git add mkdocs.yml
           #git -c core.editor=true cherry-pick --continue
           #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
@@ -237,7 +237,7 @@ jobs:
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
-          git cherry-pick 9a0d772 || true
+          git cherry-pick 2672f6b || true
           #git add mkdocs.yml
           #git -c core.editor=true cherry-pick --continue
           #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go

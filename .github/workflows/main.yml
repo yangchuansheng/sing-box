@@ -33,10 +33,15 @@ jobs:
         run: |
           git config --global user.email "yangchuansheng33@gmail.com"
           git config --global user.name "yangchuansheng"
+          cd ..
+          git clone https://github.com/qjebbs/sing-box sing-box.bak
+          cd sing-box.bak
+          COMMIT=$(git log --pretty=format:"%h-%s"|grep provider|awk -F "-" '{print $1}')
+          cd ../sing-box
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
-          git cherry-pick 2672f6b || true
+          git cherry-pick $COMMIT || true
           #git add mkdocs.yml
           #git -c core.editor=true cherry-pick --continue
           #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
@@ -80,10 +85,15 @@ jobs:
         run: |
           git config --global user.email "yangchuansheng33@gmail.com"
           git config --global user.name "yangchuansheng"
+          cd ..
+          git clone https://github.com/qjebbs/sing-box sing-box.bak
+          cd sing-box.bak
+          COMMIT=$(git log --pretty=format:"%h-%s"|grep provider|awk -F "-" '{print $1}')
+          cd ../sing-box
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
-          git cherry-pick 2672f6b || true
+          git cherry-pick $COMMIT || true
           #git add mkdocs.yml
           #git -c core.editor=true cherry-pick --continue
           #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
@@ -234,10 +244,15 @@ jobs:
         run: |
           git config --global user.email "yangchuansheng33@gmail.com"
           git config --global user.name "yangchuansheng"
+          cd ..
+          git clone https://github.com/qjebbs/sing-box sing-box.bak
+          cd sing-box.bak
+          COMMIT=$(git log --pretty=format:"%h-%s"|grep provider|awk -F "-" '{print $1}')
+          cd ../sing-box
           git checkout dev
           git remote add qjebbs https://github.com/qjebbs/sing-box
           git fetch qjebbs
-          git cherry-pick 2672f6b || true
+          git cherry-pick $COMMIT || true
           #git add mkdocs.yml
           #git -c core.editor=true cherry-pick --continue
           #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go

@@ -25,27 +25,11 @@ jobs:
           echo "RELEASE_NAME=Released on $(date +%Y%m%d%H%M)" >> $GITHUB_ENV
           echo "TAG_NAME=$(date +%Y%m%d%H%M)" >> $GITHUB_ENV
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          repository: SagerNet/sing-box
-      - name: Add proxy providers
-        run: |
-          git config --global user.email "yangchuansheng33@gmail.com"
-          git config --global user.name "yangchuansheng"
-          cd ..
-          git clone https://github.com/qjebbs/sing-box sing-box.bak
-          cd sing-box.bak
-          COMMIT=$(git log --pretty=format:"%h-%s"|grep provider|awk -F "-" '{print $1}')
-          cd ../sing-box
-          git checkout dev
-          git remote add qjebbs https://github.com/qjebbs/sing-box
-          git fetch qjebbs
-          git cherry-pick $COMMIT || true
-          #git add mkdocs.yml
-          #git -c core.editor=true cherry-pick --continue
-          #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
-          sed -i "s/v.TLSAllowInsecure/true/g" common/link/vmess.go
+          repository: yaotthaha/sing-box-pub
+          ref: dev-next-yaott
       - name: Get latest go version
         id: version
         run: |
@@ -77,27 +61,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          repository: SagerNet/sing-box
-      - name: Add proxy providers
-        run: |
-          git config --global user.email "yangchuansheng33@gmail.com"
-          git config --global user.name "yangchuansheng"
-          cd ..
-          git clone https://github.com/qjebbs/sing-box sing-box.bak
-          cd sing-box.bak
-          COMMIT=$(git log --pretty=format:"%h-%s"|grep provider|awk -F "-" '{print $1}')
-          cd ../sing-box
-          git checkout dev
-          git remote add qjebbs https://github.com/qjebbs/sing-box
-          git fetch qjebbs
-          git cherry-pick $COMMIT || true
-          #git add mkdocs.yml
-          #git -c core.editor=true cherry-pick --continue
-          #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
-          sed -i "s/v.TLSAllowInsecure/true/g" common/link/vmess.go
+          repository: yaotthaha/sing-box-pub
+          ref: dev-next-yaott
       - name: Setup Go
         uses: actions/setup-go@v2
         with:
@@ -229,34 +197,18 @@ jobs:
       GOARM: ${{ matrix.goarm }}
       GOMIPS: ${{ matrix.gomips }}
       CGO_ENABLED: 0
-      TAGS: with_gvisor,with_quic,with_wireguard,with_clash_api,with_acme
+      TAGS: with_gvisor,with_quic,with_wireguard,with_clash_api,with_acme,with_proxyprovider,with_clash_ui
     steps:
       - name: Set variables
         run: |
           echo "RELEASE_NAME=Released on $(date +%Y%m%d%H)" >> $GITHUB_ENV
           echo "TAG_NAME=$(date +%Y%m%d%H)" >> $GITHUB_ENV
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
-          repository: SagerNet/sing-box
-      - name: Add proxy providers
-        run: |
-          git config --global user.email "yangchuansheng33@gmail.com"
-          git config --global user.name "yangchuansheng"
-          cd ..
-          git clone https://github.com/qjebbs/sing-box sing-box.bak
-          cd sing-box.bak
-          COMMIT=$(git log --pretty=format:"%h-%s"|grep provider|awk -F "-" '{print $1}')
-          cd ../sing-box
-          git checkout dev
-          git remote add qjebbs https://github.com/qjebbs/sing-box
-          git fetch qjebbs
-          git cherry-pick $COMMIT || true
-          #git add mkdocs.yml
-          #git -c core.editor=true cherry-pick --continue
-          #sed -i "s/outbound := range r.outbounds/outbound := range r.outbounds.All()/g" route/router.go
-          sed -i "s/v.TLSAllowInsecure/true/g" common/link/vmess.go
+          repository: yaotthaha/sing-box-pub
+          ref: dev-next-yaott
       - name: Get latest go version
         id: version
         run: |

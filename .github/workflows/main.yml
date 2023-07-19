@@ -30,6 +30,11 @@ jobs:
           fetch-depth: 0
           repository: yaotthaha/sing-box-pub
           ref: dev-next-yaott
+      - name: with_clash_ui
+        id: dashboard
+        run: |  
+          git submodule init
+          git submodule update
       - name: Get latest go version
         id: version
         run: |
@@ -53,29 +58,6 @@ jobs:
           go get -v github.com/sagernet/sing-box@$version
           popd
         continue-on-error: true
-      - name: Run Test
-        run: |
-          go test -v ./...
-  build_go118:
-    name: Debug build (Go 1.18)
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-          repository: yaotthaha/sing-box-pub
-          ref: dev-next-yaott
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: 1.18.7
-      - name: Cache go module
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/go/pkg/mod
-          key: go118-${{ hashFiles('**/go.sum') }}
       - name: Run Test
         run: |
           go test -v ./...
@@ -209,6 +191,11 @@ jobs:
           fetch-depth: 0
           repository: yaotthaha/sing-box-pub
           ref: dev-next-yaott
+      - name: with_clash_ui
+        id: dashboard
+        run: |  
+          git submodule init
+          git submodule update
       - name: Get latest go version
         id: version
         run: |

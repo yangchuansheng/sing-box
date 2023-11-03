@@ -1,8 +1,10 @@
 {
   "experimental": {
     "clash_api": {
-      "external_controller": "0.0.0.0:9092",
-      "external_ui": "yacd",
+      "external_controller": "0.0.0.0:9090",
+      "external_ui": "metacubexd",
+      "external_ui_download_url": "https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+      "external_ui_download_detour": "select",
       "secret": "",
       "default_mode": "rule",
       "store_selected": true,
@@ -12,80 +14,364 @@
   "dns": {
     "servers": [
       {
-        "tag": "default",
-        "address": "tls://xxxxxx",
-        "address_resolver": "local",
+        "tag": "dns_proxy",
+        "address": "https://1.1.1.1/dns-query",
+        "address_resolver": "dns_resolver",
+        "strategy": "ipv4_only",
+        "detour": "select"
+      },
+      {
+        "tag": "dns_direct",
+        "address": "h3://dns.alidns.com/dns-query",
+        "address_resolver": "dns_resolver",
+        "strategy": "ipv4_only",
         "detour": "direct"
       },
       {
-        "tag": "local",
+        "tag": "dns_block",
+        "address": "rcode://refused"
+      },
+      {
+        "tag": "dns_resolver",
         "address": "223.5.5.5",
+        "strategy": "ipv4_only",
         "detour": "direct"
       }
     ],
     "rules": [
       {
-        "domain_suffix": [
-          "appletls.com",
-          "ganode.org",
-          "ytpay.link"
+        "clash_mode": "direct",
+        "server": "dns_direct"
+      },
+      {
+        "clash_mode": "global",
+        "server": "dns_proxy"
+      },
+      {
+        "process_name": [
+          "TencentMeeting",
+          "NemoDesktop",
+          "ToDesk",
+          "ToDesk_Service",
+          "WeChat",
+          "Tailscale",
+          "wireguard-go",
+          "Tunnelblick",
+          "softwareupdated",
+          "kubectl"
         ],
-        "server": "local",
-        "disable_cache": false
+        "server": "dns_direct"
+      },
+      {
+        "process_path": [
+          "/usr/libexec/rosetta/oahd"
+        ],
+        "server": "dns_direct"
+      },
+      {
+        "inbound": [
+          "socks-in"
+        ],
+        "server": "dns_proxy"
+      },
+      {
+        "domain_suffix": [
+          "openai.com",
+          "depay.one",
+          "orbstack.dev"
+        ],
+        "server": "dns_proxy"
+      },
+      {
+        "process_name": [
+          "DropboxMacUpdate",
+          "Dropbox"
+        ],
+        "server": "dns_proxy"
+      },
+      {
+        "package_name": [
+          "com.google.android.youtube",
+          "com.android.vending",
+          "org.telegram.messenger",
+          "org.telegram.plus"
+        ],
+        "server": "dns_proxy"
+      },
+      {
+        "domain": [
+          "accounts.google.com"
+        ],
+        "domain_suffix": [
+          "sourceforge.net",
+          "fhjasokiwq.com"
+        ],
+        "server": "dns_proxy"
+      },
+      {
+        "geosite": [
+          "category-games@cn"
+        ],
+        "server": "dns_direct"
+      },
+      {
+        "geosite": [
+          "geolocation-!cn"
+        ],
+        "server": "dns_proxy"
+      },
+      {
+        "geosite": [
+          "cn"
+        ],
+        "server": "dns_direct"
+      },
+      {
+        "geosite": [
+          "private"
+        ],
+        "server": "dns_direct"
+      },
+      {
+        "geosite": [
+          "google",
+          "youtube"
+        ],
+        "server": "dns_proxy"
       }
     ],
-    "final": "default",
-    "strategy": "ipv4_only"
+    "final": "dns_direct"
   },
   "inbounds": [
     {
       "type": "tun",
       "inet4_address": "198.18.0.1/16",
       "auto_route": true,
-      "domain_strategy": "ipv4_only",
-      "sniff": true
-    },
-    {
-      "type": "socks",
-      "tag": "socks-in",
-      "listen": "::",
-      "listen_port": 5353
-    }
-  ],
-  "providers": [
-    {
-      "tag": "Gacloud",
-      "url": "https://invitation.gacloud.ltd/auth/register?code=SpNw",
-      "interval": "24h",
-      "cache_file": "gacloud.txt",
-
-      "exclude": "官网|剩余|到期",
-
-      "download_detour": "direct"
+      "strict_route": true,
+      "endpoint_independent_nat": false,
+      "stack": "system",
+      "sniff": true,
+      "sniff_override_destination": false,
+      "exclude_package": [
+        "cmb.pb",
+        "cn.gov.pbc.dcep",
+        "com.MobileTicket",
+        "com.adguard.android",
+        "com.ainemo.dragoon",
+        "com.alibaba.android.rimet",
+        "com.alicloud.databox",
+        "com.amazing.cloudisk.tv",
+        "com.autonavi.minimap",
+        "com.bilibili.app.in",
+        "com.bishua666.luxxx1",
+        "com.cainiao.wireless",
+        "com.chebada",
+        "com.chinamworld.main",
+        "com.cmbchina.ccd.pluto.cmbActivity",
+        "com.coolapk.market",
+        "com.ctrip.ct",
+        "com.dianping.v1",
+        "com.douban.frodo",
+        "com.eg.android.AlipayGphone",
+        "com.farplace.qingzhuo",
+        "com.hanweb.android.zhejiang.activity",
+        "com.leoao.fitness",
+        "com.lucinhu.bili_you",
+        "com.mikrotik.android.tikapp",
+        "com.moji.mjweather",
+        "com.motorola.cn.calendar",
+        "com.motorola.cn.lrhealth",
+        "com.netease.cloudmusic",
+        "com.sankuai.meituan",
+        "com.sina.weibo",
+        "com.smartisan.notes",
+        "com.sohu.inputmethod.sogou.moto",
+        "com.sonelli.juicessh",
+        "com.ss.android.article.news",
+        "com.ss.android.lark",
+        "com.ss.android.ugc.aweme",
+        "com.tailscale.ipn",
+        "com.taobao.idlefish",
+        "com.taobao.taobao",
+        "com.tencent.mm",
+        "com.tencent.mp",
+        "com.tencent.soter.soterserver",
+        "com.tencent.wemeet.app",
+        "com.tencent.weread",
+        "com.tencent.wework",
+        "com.ttxapps.wifiadb",
+        "com.unionpay",
+        "com.unnoo.quan",
+        "com.wireguard.android",
+        "com.xingin.xhs",
+        "com.xunmeng.pinduoduo",
+        "com.zui.zhealthy",
+        "ctrip.android.view",
+        "io.kubenav.kubenav",
+        "org.geekbang.geekTime",
+        "tv.danmaku.bili"
+      ]
     }
   ],
   "outbounds": [
     {
       "type": "selector",
       "tag": "select",
-    
       "outbounds": [
+        "shadowsocks-out",
         "trojan-out",
-        "Gacloud"
+        "vmess-out",
+        "vless-out",
+        "tuic-out"
       ],
-      "default": "trojan-out"
+      "default": "shadowsocks-out"
+    },
+    {
+      "type": "selector",
+      "tag": "openai",
+      "outbounds": [
+        "shadowsocks-out",
+        "trojan-out",
+        "vmess-out",
+        "vless-out",
+        "tuic-out"
+      ],
+      "default": "shadowsocks-out"
     },
     {
       "type": "trojan",
       "tag": "trojan-out",
-    
-      "server": "xxxxx",
-      "server_port": 443,
-      "password": "xxxxx",
-      "network": "tcp",
+      "server": "xxx",
+      "server_port": 9443,
+      "password": "xxx",
+      "tls": {
+        "enabled": true,
+        "server_name": "xxx",
+        "insecure": true,
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      },
+      "multiplex": {
+        "enabled": true,
+        "protocol": "h2mux",
+        "max_connections": 4,
+        "min_streams": 4,
+        "padding": true
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "TunService"
+      }
+    },
+    {
+      "type": "shadowsocks",
+      "tag": "shadowsocks-out",
+      "method": "2022-blake3-aes-128-gcm",
+      "password": "xxx",
+      "detour": "shadowtls-out",
+      "udp_over_tcp": {
+        "enabled": false,
+        "version": 2
+      },
+      "multiplex": {
+        "enabled": true,
+        "protocol": "h2mux",
+        "max_connections": 4,
+        "min_streams": 4,
+        "padding": true
+      }
+    },
+    {
+      "type": "shadowtls",
+      "tag": "shadowtls-out",
+      "server": "xxx",
+      "server_port": 8443,
+      "version": 3,
+      "password": "xxx",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.lovelive-anime.jp",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        }
+      }
+    },
+    {
+      "type": "vmess",
+      "tag": "vmess-out",
+      "server": "xxx",
+      "server_port": 6443,
+      "uuid": "xxx",
+      "alter_id": 0,
+      "security": "auto",
+      "global_padding": false,
+      "authenticated_length": true,
       "domain_strategy": "ipv4_only",
       "tls": {
-          "enabled": false
+        "enabled": true,
+        "disable_sni": false,
+        "server_name": "xxx",
+        "insecure": true,
+        "alpn": [
+          "http/1.1",
+          "h2"
+        ]
+      },
+      "transport": {
+        "type": "grpc",
+        "service_name": "TunService"
+      },
+      "multiplex": {
+        "enabled": true,
+        "protocol": "smux",
+        "max_connections": 4,
+        "min_streams": 4,
+        "max_streams": 0
+      }
+    },
+    {
+      "type": "vless",
+      "tag": "vless-out",
+      "server": "xxx",
+      "server_port": 5443,
+      "uuid": "xxx",
+      "flow": "",
+      "tls": {
+        "enabled": true,
+        "server_name": "www.lovelive-anime.jp",
+        "utls": {
+          "enabled": true,
+          "fingerprint": "chrome"
+        },
+        "reality": {
+          "enabled": true,
+          "public_key": "xxx",
+          "short_id": "6ba85179e30d4fc2"
+        }
+      },
+      "packet_encoding": "xudp",
+      "transport": {
+        "type": "grpc",
+        "service_name": "grpc"
+      }
+    },
+    {
+      "type": "tuic",
+      "tag": "tuic-out",
+      "server": "",
+      "server_port": 443,
+      "uuid": "xxx",
+      "password": "xxx",
+      "congestion_control": "bbr",
+      "tls": {
+        "enabled": true,
+        "server_name": "xxx",
+        "alpn": [
+          "h3"
+        ]
       }
     },
     {
@@ -103,9 +389,9 @@
   ],
   "route": {
     "geoip": {
-        "path": "geoip.db",
-        "download_url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/geoip.db",
-        "download_detour": "select"
+      "path": "geoip.db",
+      "download_url": "https://raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/geoip.db",
+      "download_detour": "select"
     },
     "geosite": {
       "path": "geosite.db",
@@ -118,10 +404,12 @@
         "outbound": "dns-out"
       },
       {
-        "protocol": [
-          "quic"
-        ],
-        "outbound": "block"
+        "clash_mode": "direct",
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "global",
+        "outbound": "select"
       },
       {
         "process_name": [
@@ -132,7 +420,9 @@
           "WeChat",
           "Tailscale",
           "wireguard-go",
-          "Tunnelblick"
+          "Tunnelblick",
+          "softwareupdated",
+          "kubectl"
         ],
         "outbound": "direct"
       },
@@ -143,8 +433,28 @@
         "outbound": "direct"
       },
       {
-        "inbound": [
-          "socks-in"
+        "protocol": [
+          "quic"
+        ],
+        "outbound": "block"
+      },
+      {
+        "geosite": [
+          "openai"
+        ],
+        "geoip": [
+          "openai"
+        ],
+        "package_name": [
+          "com.openai.chatgpt"
+        ],
+        "outbound": "openai"
+      },
+      {
+        "domain_suffix": [
+          "openai.com",
+          "depay.one",
+          "orbstack.dev"
         ],
         "outbound": "select"
       },
@@ -156,11 +466,83 @@
         "outbound": "select"
       },
       {
-        "geosite": [
-          "geolocation-cn",
-          "icloud@cn",
-          "apple@cn"
+        "package_name": [
+          "com.google.android.youtube",
+          "com.android.vending",
+          "org.telegram.messenger",
+          "org.telegram.plus"
         ],
+        "outbound": "select"
+      },
+      {
+        "domain": [
+          "accounts.google.com"
+        ],
+        "domain_suffix": [
+          "sourceforge.net",
+          "fhjasokiwq.com"
+        ],
+        "outbound": "select"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "geosite": [
+              "category-games@cn"
+            ]
+          },
+          {
+            "geoip": [
+              "cn"
+            ]
+          }
+        ],
+        "outbound": "direct"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "geosite": [
+              "geolocation-!cn"
+            ]
+          },
+          {
+            "geoip": [
+              "cn"
+            ],
+            "invert": true
+          }
+        ],
+        "outbound": "select"
+      },
+      {
+        "type": "logical",
+        "mode": "and",
+        "rules": [
+          {
+            "geosite": [
+              "cn"
+            ]
+          },
+          {
+            "geoip": [
+              "cn"
+            ]
+          }
+        ],
+        "outbound": "direct"
+      },
+      {
+        "geosite": [
+          "private"
+        ],
+        "outbound": "direct"
+      },
+      {
         "geoip": [
           "cn",
           "private"
@@ -179,16 +561,17 @@
           "netflix"
         ],
         "outbound": "select"
-      },
-      {
-        "geosite": [
-          "geolocation-!cn"
-        ],
-        "outbound": "select"
       }
     ],
     "final": "direct",
     "find_process": true,
     "auto_detect_interface": true
+  },
+  "ntp": {
+    "enabled": true,
+    "server": "time.apple.com",
+    "server_port": 123,
+    "interval": "30m",
+    "detour": "direct"
   }
 }
